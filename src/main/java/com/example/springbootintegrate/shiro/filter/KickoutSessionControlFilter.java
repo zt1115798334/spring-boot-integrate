@@ -14,7 +14,6 @@ import org.apache.shiro.web.util.WebUtils;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Deque;
@@ -115,7 +114,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
                     //设置会话的kickout属性表示踢出了
                     kickoutSession.setAttribute("kickout", true);
                 }
-            } catch(Exception e) {//ignore exception
+            } catch (Exception e) {//ignore exception
             }
         }
 
@@ -125,7 +124,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             try {
                 //退出登录
                 subject.logout();
-            } catch(Exception e) { //ignore
+            } catch (Exception e) { //ignore
             }
             saveRequest(request);
 
@@ -145,15 +144,14 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         return true;
     }
 
-    private void out(ServletResponse response, Map<String, String> resultMap)
-            throws IOException {
+    private void out(ServletResponse response, Map<String, String> resultMap) {
         try {
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
             out.println(JSON.toJSONString(resultMap));
             out.flush();
             out.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.err.println("KickoutSessionFilter.class 输出JSON异常，可以忽略。");
         }
     }

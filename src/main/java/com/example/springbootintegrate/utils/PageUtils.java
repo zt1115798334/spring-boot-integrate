@@ -18,17 +18,18 @@ public class PageUtils {
     public static PageRequest buildPageRequest(int page, int size, String sortName, String sortOrder) {
         Sort sort = null;
         if (!StringUtils.isNotBlank(sortName)) {
-            return new PageRequest(page - 1, size);
+
+            return PageRequest.of(page - 1, size);
         } else if (StringUtils.isNotBlank(sortOrder)) {
             if (StringUtils.equalsIgnoreCase(sortOrder, Sort.Direction.ASC.toString())) {
                 sort = new Sort(Sort.Direction.ASC, sortName);
             } else {
                 sort = new Sort(Sort.Direction.DESC, sortName);
             }
-            return new PageRequest(page - 1, size, sort);
+            return PageRequest.of(page - 1, size, sort);
         } else {
             sort = new Sort(Sort.Direction.ASC, sortName);
-            return new PageRequest(page - 1, size, sort);
+            return PageRequest.of(page - 1, size, sort);
         }
     }
 
